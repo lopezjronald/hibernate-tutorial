@@ -1,0 +1,26 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- JDBC Database connection settings -->
+        <property name="connection.url">jdbc:postgresql://localhost:5432/hbstudent</property> <!-- BD Mane -->
+        <property name="connection.driver_class">org.postgresql.Driver</property> <!-- DB Driver -->
+        <property name="connection.username">postgres</property> <!-- DB User -->
+        <property name="connection.password">password</property> <!-- DB Password -->
+
+        <!-- JDBC Connection Pool Settings... using built-in test pool -->
+       <property name="connection.pool_size">3</property>
+
+        <!-- Select our SQL Dialect -->
+        <property name="dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
+
+        <!-- Select our SQL Dialect -->
+        <property name="show_sql">true</property>
+
+        <!-- Set the current session context -->
+        <property name="current_session_context_class">thread</property>
+
+    </session-factory>
+</hibernate-configuration>
