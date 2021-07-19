@@ -1,4 +1,4 @@
-package com.steadfast.hibernate.demo.entity;
+package com.steadfast.hibernate.demo.model;
 
 import javax.persistence.*;
 

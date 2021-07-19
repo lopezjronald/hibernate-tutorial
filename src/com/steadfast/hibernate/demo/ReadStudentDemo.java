@@ -1,6 +1,6 @@
 package com.steadfast.hibernate.demo;
 
-import com.steadfast.hibernate.demo.entity.Student;
+import com.steadfast.hibernate.demo.model.Student;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
