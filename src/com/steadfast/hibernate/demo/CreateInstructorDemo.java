@@ -1,9 +1,6 @@
 package com.steadfast.hibernate.demo;
 
-import com.steadfast.hibernate.demo.model.Course;
-import com.steadfast.hibernate.demo.model.Instructor;
-import com.steadfast.hibernate.demo.model.InstructorDetail;
-import com.steadfast.hibernate.demo.model.Student;
+import com.steadfast.hibernate.demo.model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -17,6 +14,7 @@ public class CreateInstructorDemo {
                 .addAnnotatedClass(Instructor.class)
                 .addAnnotatedClass(InstructorDetail.class)
                 .addAnnotatedClass(Course.class)
+                .addAnnotatedClass(Review.class)
                 .buildSessionFactory();
 
         // create a session

@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class TestJdbc {
     public static void main(String[] args) {
         try {
-            String url = "jdbc:postgresql://localhost:5432/hbstudent";
+            String url = "jdbc:postgresql://localhost:5432/hbstudent2";
             String username = "postgres";
             String password = "password";
             try (Connection conn = DriverManager.getConnection(url, username, password)) {

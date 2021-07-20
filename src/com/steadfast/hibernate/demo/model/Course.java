@@ -1,6 +1,8 @@
 package com.steadfast.hibernate.demo.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "course")
@@ -23,6 +25,12 @@ public class Course {
                     CascadeType.PERSIST})
     @JoinColumn(name = "instructor_id")
     private Instructor instructor;
+
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id")
+    private List<Review> reviews;
 
     public Course() {
     }
@@ -51,11 +59,29 @@ public class Course {
         this.instructor = instructor;
     }
 
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    // add convenience methods for adding reviews
+    public void addReview(Review review) {
+        if (reviews == null) {
+            reviews = new ArrayList<>();
+        }
+        reviews.add(review);
+    }
+
     @Override
     public String toString() {
         return "Course{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", instructor=" + instructor +
+                ", reviews=" + reviews +
                 '}';
     }
 }

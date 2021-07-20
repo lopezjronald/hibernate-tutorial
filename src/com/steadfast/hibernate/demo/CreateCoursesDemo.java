@@ -1,9 +1,6 @@
 package com.steadfast.hibernate.demo;
 
-import com.steadfast.hibernate.demo.model.Course;
-import com.steadfast.hibernate.demo.model.Instructor;
-import com.steadfast.hibernate.demo.model.InstructorDetail;
-import com.steadfast.hibernate.demo.model.Student;
+import com.steadfast.hibernate.demo.model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -17,6 +14,7 @@ public class CreateCoursesDemo {
                 .addAnnotatedClass(Instructor.class)
                 .addAnnotatedClass(InstructorDetail.class)
                 .addAnnotatedClass(Course.class)
+                .addAnnotatedClass(Review.class)
                 .buildSessionFactory();
 
         // create a session
@@ -29,7 +27,7 @@ public class CreateCoursesDemo {
             System.out.println("Beginning session transaction");
             session.beginTransaction();
 
-            int id = 6;
+            int id = 1;
 
             // get instructor from db
             Instructor instructor = session.get(Instructor.class, id);
