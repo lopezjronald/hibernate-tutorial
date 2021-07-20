@@ -3,7 +3,7 @@ package com.steadfast.hibernate.demo.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="instructor_detail")
+@Table(name = "instructor_detail")
 public class InstructorDetail {
 
     // annotate the class as an entity and map to db table
@@ -23,11 +23,24 @@ public class InstructorDetail {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name="youtube_channel")
+    @Column(name = "youtube_channel")
     private String youtubeChannel;
 
-    @Column(name="hobby")
+    @Column(name = "hobby")
     private String hobby;
+
+    // add new field for instructor (also add getter & setters)
+
+    // add @OneToOne annotation
+    @OneToOne(
+            fetch = FetchType.LAZY,
+            mappedBy = "instructorDetail",
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH})
+    private Instructor instructor;
 
     public InstructorDetail() {
     }
@@ -55,6 +68,14 @@ public class InstructorDetail {
 
     public void setHobby(String hobby) {
         this.hobby = hobby;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 
     @Override

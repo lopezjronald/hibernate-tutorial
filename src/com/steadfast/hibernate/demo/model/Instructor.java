@@ -1,6 +1,8 @@
 package com.steadfast.hibernate.demo.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "instructor")
@@ -26,6 +28,16 @@ public class Instructor {
     @JoinColumn(name = "instructor_detail_id")
     private InstructorDetail instructorDetail;
 
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "instructor",
+            cascade = {
+                    CascadeType.REFRESH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.DETACH})
+    List<Course> courses;
+
     public Instructor() {
     }
 
@@ -43,32 +55,40 @@ public class Instructor {
         return firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public InstructorDetail getInstructorDetail() {
-        return instructorDetail;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
 
+    public InstructorDetail getInstructorDetail() {
+        return instructorDetail;
+    }
+
     public void setInstructorDetail(InstructorDetail instructorDetail) {
         this.instructorDetail = instructorDetail;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 
     @Override
@@ -80,5 +100,16 @@ public class Instructor {
                 ", email='" + email + '\'' +
                 ", instructorDetail=" + instructorDetail +
                 '}';
+    }
+
+    // add convenience methods for bi-directional relationship
+
+    public void add(Course course) {
+        if (courses == null) {
+            courses = new ArrayList<>();
+        }
+        courses.add(course);
+
+        course.setInstructor(this);
     }
 }
