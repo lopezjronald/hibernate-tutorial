@@ -6,49 +6,55 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class CreateCourseAndReviewsDemo {
+
     public static void main(String[] args) {
 
-        // Create a session factory
-        SessionFactory sessionFactory = new Configuration()
+        // create session factory
+        SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Student.class)
                 .addAnnotatedClass(Instructor.class)
                 .addAnnotatedClass(InstructorDetail.class)
                 .addAnnotatedClass(Course.class)
                 .addAnnotatedClass(Review.class)
+                .addAnnotatedClass(Student.class)
                 .buildSessionFactory();
 
-        // create a session
-        Session session = sessionFactory.getCurrentSession();
+        // create session
+        Session session = factory.getCurrentSession();
 
         try {
-            // use the session object to save the Java object
 
             // start a transaction
-            System.out.println("Beginning session transaction");
             session.beginTransaction();
 
+
             // create a course
-            Course course = new Course("Savageness - Growing a Savageness Mindset");
+            Course tempCourse = new Course("Pacman - How To Score One Million Points");
 
             // add some reviews
-            course.addReview(new Review("Great course... loved it!!!!"));
-            course.addReview(new Review("Cool course, job well done"));
-            course.addReview(new Review("What a dumb course, you are an idiot!!!"));
+            tempCourse.addReview(new Review("Great course ... loved it!"));
+            tempCourse.addReview(new Review("Cool course, job well done"));
+            tempCourse.addReview(new Review("What a dumb course, you are an idiot!"));
 
-            // save the course and leverage the cascade all :)
+            // save the course ... and leverage the cascade all :-)
             System.out.println("Saving the course");
-            System.out.println(course);
-            session.save(course);
+            System.out.println(tempCourse);
+            System.out.println(tempCourse.getReviews());
+
+            session.save(tempCourse);
 
             // commit transaction
-            System.out.println("Committing the transaction");
             session.getTransaction().commit();
 
-        } finally {
-            session.close();
-            sessionFactory.close();
+            System.out.println("Done!");
         }
+        finally {
 
+            // add clean up code
+            session.close();
+
+            factory.close();
+        }
     }
+
 }
